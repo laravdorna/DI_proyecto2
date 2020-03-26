@@ -1,7 +1,13 @@
 import gi
 
+from src.app.modelo.modelos import database, Usuario
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+
+productos = ['leche', 'cacao', 'galletas', 'cafe', 'lechuga', 'papel', 'zumo', 'fruta']
+
+database.connect()
 
 
 class MainUI(Gtk.Window):
@@ -14,7 +20,7 @@ class MainUI(Gtk.Window):
         constructor que inicializa y muestra la ventana principal
         """
         builder = Gtk.Builder()
-        builder.add_from_file("./Glade/Inicio.glade")
+        builder.add_from_file("./vista/Glade/Inicio.glade")
 
         # diccionario de señales
         senales = {
@@ -32,12 +38,18 @@ class MainUI(Gtk.Window):
 
     def on_b_entrar_clicked(self, obj):
         """
-        abre la ventana de comprar productos de la tienda
+        comprueba si las credenciales son correctas y abre la ventana de comprar productos de la tienda,
         :param obj:
         :return:
         """
-        self.window.hide()
-        productos_window = ProductosUI(parent=self)
+        # TODO: actualizar nombre por dni
+        dni = self.e_nombre.get_text()
+        contrasena = self.e_contrasena.get_text()
+        usuario = Usuario.get_or_none(dni=dni, contrasena=contrasena)
+
+        if usuario:
+            self.window.hide()
+            productos_window = ProductosUI(parent=self)
 
     def on_b_gestion_usuarios_clicked(self, obj):
         """
@@ -57,6 +69,7 @@ class MainUI(Gtk.Window):
         Gtk.main_quit()
 
 
+
 class ProductosUI(Gtk.Window):
     """
     Ventana de compra de productos por un usuario
@@ -70,7 +83,7 @@ class ProductosUI(Gtk.Window):
         self.parent = parent
 
         builder = Gtk.Builder()
-        builder.add_from_file("./Glade/Productos.glade")
+        builder.add_from_file("./vista/Glade/Productos.glade")
 
         # diccionario de señales
         senales = {
@@ -90,6 +103,30 @@ class ProductosUI(Gtk.Window):
         self.cb_cantidad = builder.get_object("cb_cantidad")
         self.tv_productos = builder.get_object("tv_productos")
 
+        # treeview
+        # crear liststore con el tipo de contenido de la lista
+        self.lista_productos = Gtk.ListStore(str, int)
+        # recorrer la lista y añadir los productos al list store
+        nombre_columnas = ['Producto', 'Cantidad']
+
+        self.tv_productos.set_model(self.lista_productos)
+        for i, columna in enumerate(nombre_columnas):
+            renderer = Gtk.CellRendererText()
+            column = Gtk.TreeViewColumn(columna, renderer, text=i)
+            self.tv_productos.append_column(column)
+
+        # combobox de productos añadir los productos
+        # crear liststore con el tipo de contenido de la lista
+        lista_productos = Gtk.ListStore(str)
+        # recorrer la lista y añadir los productos al list store
+        for producto in productos:
+            lista_productos.append([producto])
+            # añadir la lista al combobox
+        self.cb_productos.set_model(lista_productos)
+        # hacer visibles los productos en la combobox
+        renderer_text = Gtk.CellRendererText()
+        self.cb_productos.pack_start(renderer_text, True)
+        self.cb_productos.add_attribute(renderer_text, "text", 0)
 
     def close(self, obj):
         """
@@ -106,7 +143,27 @@ class ProductosUI(Gtk.Window):
         :param obj:
         :return:
         """
-        pass
+        # conseguir items de los combobox
+        tree_iter_productos = self.cb_productos.get_active_iter()
+        if tree_iter_productos is not None:
+            model = self.cb_productos.get_model()
+            nombre_producto = model[tree_iter_productos][0]
+        else:
+            nombre_producto = None
+
+        tree_iter_cantidad = self.cb_cantidad.get_active_iter()
+        if tree_iter_cantidad is not None:
+            model = self.cb_cantidad.get_model()
+            cantidad = model[tree_iter_cantidad][0]
+        else:
+            cantidad = None
+
+        # TODO: en el futuro añadir llamada al metodo para refrescar el listado de la compra
+        print('{} - {}'.format(nombre_producto, cantidad))
+        # cargar los datos en el treeview
+        if nombre_producto and cantidad:
+            model = self.tv_productos.get_model()
+            model.append([nombre_producto, int(cantidad)])
 
     def on_b_comprar_clicked(self, obj):
         """
@@ -114,7 +171,8 @@ class ProductosUI(Gtk.Window):
         :param obj:
         :return:
         """
-        pass
+        usuarios = Usuario.select()
+        print(usuarios)
 
     def cb_cantidad_changed(self, obj):
         """
@@ -141,7 +199,7 @@ class UsuariosUI(Gtk.Window):
         self.parent = parent
 
         builder = Gtk.Builder()
-        builder.add_from_file("./Glade/ListaUsuarios.glade")
+        builder.add_from_file("./vista/Glade/ListaUsuarios.glade")
 
         # diccionario de señales
         senales = {
@@ -159,6 +217,36 @@ class UsuariosUI(Gtk.Window):
         # elementos utilizados
         self.tv_usuarios = builder.get_object("tv_usuarios")
 
+        # crear liststore con el tipo de contenido de la lista
+        self.lista_usuarios = Gtk.ListStore(str, str, str, str, str, str)
+        # recorrer la lista y añadir los productos al list store
+        nombre_columnas = ['Nombre', 'Puesto', 'Telefono']
+
+        self.cargar_usuarios()
+
+        for i, columna in enumerate(nombre_columnas):
+            renderer = Gtk.CellRendererText()
+            column = Gtk.TreeViewColumn(columna, renderer, text=i)
+            self.tv_usuarios.append_column(column)
+
+    def cargar_usuarios(self):
+        usuarios = Usuario.select()
+        self.lista_usuarios.clear()
+
+        for usuario in usuarios:
+            self.lista_usuarios.append(
+                [
+                    usuario.nombre,
+                    usuario.puesto,
+                    usuario.tlf,
+                    usuario.dni,
+                    usuario.contrasena,
+                    usuario.apellido
+                ]
+            )
+
+        self.tv_usuarios.set_model(self.lista_usuarios)
+
     def close(self, obj):
         """
         cierra la ventana y devuelve el control a la ventana principal
@@ -175,6 +263,7 @@ class UsuariosUI(Gtk.Window):
         :return:
         """
         self.window.hide()
+
         registro_window = RegistroUI(parent=self)
 
     def on_b_modificar_clicked(self, obj):
@@ -183,9 +272,15 @@ class UsuariosUI(Gtk.Window):
         :param obj:
         :return:
         """
-        usuario = None
         self.window.hide()
-        registro_window = RegistroUI(parent=self, usuario=usuario)
+
+        selection = self.tv_usuarios.get_selection()
+        model, tree_iter_usuarios = selection.get_selected()
+        if tree_iter_usuarios is not None:
+            dni = model[tree_iter_usuarios][3]
+            usuario = Usuario.get_or_none(dni=dni)
+            if usuario:
+                registro_window = RegistroUI(parent=self, usuario=usuario)
 
     def on_b_eliminar_clicked(self, obj):
         """
@@ -193,7 +288,16 @@ class UsuariosUI(Gtk.Window):
         :param obj:
         :return:
         """
-        pass
+        selection = self.tv_usuarios.get_selection()
+        model, tree_iter_usuarios = selection.get_selected()
+        if tree_iter_usuarios is not None:
+            dni = model[tree_iter_usuarios][3]
+            usuario = Usuario.get_or_none(dni=dni)
+            if usuario:
+                with database.atomic():
+                    usuario.delete_instance()
+
+                self.cargar_usuarios()
 
     def on_b_reporte_usuarios_clicked(self, obj):
         """
@@ -218,7 +322,7 @@ class RegistroUI(Gtk.Window):
         self.parent = parent
 
         builder = Gtk.Builder()
-        builder.add_from_file("./Glade/Registro.glade")
+        builder.add_from_file("./vista/Glade/Registro.glade")
 
         # diccionario de señales
         senales = {
@@ -238,6 +342,15 @@ class RegistroUI(Gtk.Window):
         self.e_dni = builder.get_object("e_dni")
         self.e_puesto = builder.get_object("e_puesto")
 
+        # si se indica usuario para modificar, se cargan los datos del usuario en los entries
+        if usuario:
+            self.e_dni.set_text(usuario.dni)
+            self.e_contrasena.set_text(usuario.contrasena)
+            self.e_nombre.set_text(usuario.nombre)
+            self.e_apellido.set_text(usuario.apellido)
+            self.e_tlf.set_text(usuario.tlf)
+            self.e_puesto.set_text(usuario.puesto)
+
     def close(self, obj):
         """
         cierra la ventana y devuelve el control a la ventana de gestion de usuarios
@@ -254,10 +367,38 @@ class RegistroUI(Gtk.Window):
         :return:
         """
         # TODO: en el futuro añadir llamada al metodo para refrescar el listado de usuarios
+        dni = self.e_dni.get_text()
+        contrasena = self.e_contrasena.get_text()
+        nombre = self.e_nombre.get_text()
+        apellido = self.e_apellido.get_text()
+        tlf = self.e_tlf.get_text()
+        puesto = self.e_puesto.get_text()
+
+        usuario = Usuario.get_or_none(dni=dni)
+
+        # si existe el usuario actualizamos
+        if usuario:
+            with database.atomic():
+                usuario.dni = dni
+                usuario.contrasena = contrasena
+                usuario.nombre = nombre
+                usuario.apellido = apellido
+                usuario.tlf = tlf
+                usuario.puesto = puesto
+                usuario.save()
+
+        else:
+            with database.atomic():
+                usuario = Usuario.create(
+                    dni=dni,
+                    contrasena=contrasena,
+                    nombre=nombre,
+                    apellido=apellido,
+                    tlf=tlf,
+                    puesto=puesto
+                )
+
+        self.parent.cargar_usuarios()
+
         self.parent.window.show()
         self.window.destroy()
-
-
-if __name__ == "__main__":
-    MainUI()
-    Gtk.main()
