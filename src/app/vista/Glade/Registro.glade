@@ -18,7 +18,7 @@
             <property name="margin_top">10</property>
             <property name="margin_bottom">10</property>
             <property name="hexpand">False</property>
-            <property name="label" translatable="yes">Datos del Cliente:</property>
+            <property name="label" translatable="yes">Datos del Usuario:</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -103,13 +103,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="l_direccion">
+              <object class="GtkLabel" id="l_puesto">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="margin_top">10</property>
                 <property name="margin_bottom">10</property>
-                <property name="label" translatable="yes">Dirección:</property>
+                <property name="label" translatable="yes">Puesto:</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -167,7 +167,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="e_direccion">
+              <object class="GtkEntry" id="e_puesto">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
               </object>

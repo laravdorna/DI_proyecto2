@@ -26,9 +26,9 @@ class MainUI(Gtk.Window):
         self.window = builder.get_object("v_inicio")
         self.window.show_all()
 
-        # entrys utilizados
-        # e_nombre
-        # e_contraseña
+        # elementos utilizados
+        self.e_nombre = builder.get_object("e_nombre")
+        self.e_contrasena = builder.get_object("e_contrasena")
 
     def on_b_entrar_clicked(self, obj):
         """
@@ -84,6 +84,12 @@ class ProductosUI(Gtk.Window):
         builder.connect_signals(senales)
         self.window = builder.get_object("v_productos")
         self.window.show_all()
+
+        # elementos utilizados
+        self.cb_productos = builder.get_object("cb_productos")
+        self.cb_cantidad = builder.get_object("cb_cantidad")
+        self.tv_productos = builder.get_object("tv_productos")
+
 
     def close(self, obj):
         """
@@ -149,6 +155,9 @@ class UsuariosUI(Gtk.Window):
         builder.connect_signals(senales)
         self.window = builder.get_object("v_lista_usuarios")
         self.window.show_all()
+
+        # elementos utilizados
+        self.tv_usuarios = builder.get_object("tv_usuarios")
 
     def close(self, obj):
         """
@@ -220,6 +229,14 @@ class RegistroUI(Gtk.Window):
         builder.connect_signals(senales)
         self.window = builder.get_object("v_edicion_ususario")
         self.window.show_all()
+
+        # elementos utilizados
+        self.e_nombre = builder.get_object("e_nombre")
+        self.e_contrasena = builder.get_object("e_contrasena")
+        self.e_apellido = builder.get_object("e_apellido")
+        self.e_tlf = builder.get_object("e_tlf")
+        self.e_dni = builder.get_object("e_dni")
+        self.e_puesto = builder.get_object("e_puesto")
 
     def close(self, obj):
         """

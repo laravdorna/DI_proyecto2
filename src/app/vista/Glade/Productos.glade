@@ -111,7 +111,7 @@
             <property name="vexpand">True</property>
             <property name="shadow_type">in</property>
             <child>
-              <object class="GtkTreeView">
+              <object class="GtkTreeView" id="tv_productos">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <child internal-child="selection">
