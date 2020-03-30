@@ -4,9 +4,15 @@ from peewee import *
 
 path = os.getcwd()
 database = SqliteDatabase(os.path.join(path, 'app.db'))
+"""
+creacion de la db en Sqlite con peewee
+"""
 
 
 class Usuario(Model):
+    """"
+        tabla usuario, introduce los datos del trabajador de la tienda
+    """
     dni = CharField(unique=True)
     nombre = CharField()
     contrasena = CharField()
@@ -19,5 +25,9 @@ class Usuario(Model):
 
 
 def create_tables():
+    """
+    crea las tablas de la db
+    :return:
+    """
     with database:
         database.create_tables([Usuario, ])

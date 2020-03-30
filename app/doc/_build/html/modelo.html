@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Modelo &#8212; documentación de ID_proyecto - </title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Vista" href="vista.html" />
+    <link rel="prev" title="Modulos" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-modelos">
+<span id="modelo"></span><h1>Modelo<a class="headerlink" href="#module-modelos" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="class">
+<dt id="modelos.Usuario">
+<em class="property">class </em><code class="sig-prename descclassname">modelos.</code><code class="sig-name descname">Usuario</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelos.html#Usuario"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#modelos.Usuario" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">peewee.Model</span></code></p>
+<p>»
+tabla usuario, introduce los datos del trabajador de la tienda</p>
+<dl class="attribute">
+<dt id="modelos.Usuario.DoesNotExist">
+<code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#modelos.Usuario.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal notranslate"><span class="pre">UsuarioDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="modelos.Usuario.apellido">
+<code class="sig-name descname">apellido</code><em class="property"> = &lt;CharField: Usuario.apellido&gt;</em><a class="headerlink" href="#modelos.Usuario.apellido" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="modelos.Usuario.contrasena">
+<code class="sig-name descname">contrasena</code><em class="property"> = &lt;CharField: Usuario.contrasena&gt;</em><a class="headerlink" href="#modelos.Usuario.contrasena" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="modelos.Usuario.dni">
+<code class="sig-name descname">dni</code><em class="property"> = &lt;CharField: Usuario.dni&gt;</em><a class="headerlink" href="#modelos.Usuario.dni" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="modelos.Usuario.id">
+<code class="sig-name descname">id</code><em class="property"> = &lt;AutoField: Usuario.id&gt;</em><a class="headerlink" href="#modelos.Usuario.id" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="modelos.Usuario.nombre">
+<code class="sig-name descname">nombre</code><em class="property"> = &lt;CharField: Usuario.nombre&gt;</em><a class="headerlink" href="#modelos.Usuario.nombre" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="modelos.Usuario.puesto">
+<code class="sig-name descname">puesto</code><em class="property"> = &lt;CharField: Usuario.puesto&gt;</em><a class="headerlink" href="#modelos.Usuario.puesto" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="modelos.Usuario.tlf">
+<code class="sig-name descname">tlf</code><em class="property"> = &lt;CharField: Usuario.tlf&gt;</em><a class="headerlink" href="#modelos.Usuario.tlf" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="modelos.create_tables">
+<code class="sig-prename descclassname">modelos.</code><code class="sig-name descname">create_tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelos.html#create_tables"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#modelos.create_tables" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>crea las tablas de la db
+:return:</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="modelos.database">
+<code class="sig-prename descclassname">modelos.</code><code class="sig-name descname">database</code><em class="property"> = &lt;peewee.SqliteDatabase object&gt;</em><a class="headerlink" href="#modelos.database" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>creacion de la db en Sqlite con peewee</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ID_proyecto</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">IDE TIENDA ALIMENTACIÓN</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modulos</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Modelo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vista.html">Vista</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Modulos</a><ul>
+      <li>Previous: <a href="modules.html" title="capítulo anterior">Modulos</a></li>
+      <li>Next: <a href="vista.html" title="próximo capítulo">Vista</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Lara Vazquez.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/modelo.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

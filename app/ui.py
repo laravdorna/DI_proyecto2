@@ -1,13 +1,31 @@
-import gi
+import os
 
-from src.app.modelo.modelos import database, Usuario
+import gi
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+from .modelos import database, Usuario
 
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib import colors
+from reportlab.platypus import Table
+from reportlab.platypus import TableStyle
+import webbrowser as wb
+
+# lista de productos
 productos = ['leche', 'cacao', 'galletas', 'cafe', 'lechuga', 'papel', 'zumo', 'fruta']
 
+# conectar con la base de datos
 database.connect()
+
+
+def mostrar_dialogo(window, texto_primario, texto_secundario):
+    dialog = Gtk.MessageDialog(window, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, texto_primario)
+    dialog.format_secondary_text(texto_secundario)
+    dialog.run()
+
+    dialog.destroy()
 
 
 class MainUI(Gtk.Window):
@@ -20,7 +38,7 @@ class MainUI(Gtk.Window):
         constructor que inicializa y muestra la ventana principal
         """
         builder = Gtk.Builder()
-        builder.add_from_file("./vista/Glade/Inicio.glade")
+        builder.add_from_file("./Glade/Inicio.glade")
 
         # diccionario de señales
         senales = {
@@ -33,7 +51,7 @@ class MainUI(Gtk.Window):
         self.window.show_all()
 
         # elementos utilizados
-        self.e_nombre = builder.get_object("e_nombre")
+        self.e_dni = builder.get_object("e_dni")
         self.e_contrasena = builder.get_object("e_contrasena")
 
     def on_b_entrar_clicked(self, obj):
@@ -42,14 +60,14 @@ class MainUI(Gtk.Window):
         :param obj:
         :return:
         """
-        # TODO: actualizar nombre por dni
-        dni = self.e_nombre.get_text()
+
+        dni = self.e_dni.get_text()
         contrasena = self.e_contrasena.get_text()
         usuario = Usuario.get_or_none(dni=dni, contrasena=contrasena)
 
         if usuario:
             self.window.hide()
-            productos_window = ProductosUI(parent=self)
+            productos_window = ProductosUI(parent=self, usuario_registrado=usuario)
 
     def on_b_gestion_usuarios_clicked(self, obj):
         """
@@ -69,21 +87,21 @@ class MainUI(Gtk.Window):
         Gtk.main_quit()
 
 
-
 class ProductosUI(Gtk.Window):
     """
     Ventana de compra de productos por un usuario
     """
 
-    def __init__(self, parent=None):
+    def __init__(self, parent, usuario_registrado: Usuario):
         """
         constructor que inicializa y muestra la ventana prodcutos
         :param parent:
         """
         self.parent = parent
+        self.usuario_registrado = usuario_registrado
 
         builder = Gtk.Builder()
-        builder.add_from_file("./vista/Glade/Productos.glade")
+        builder.add_from_file("./Glade/Productos.glade")
 
         # diccionario de señales
         senales = {
@@ -117,12 +135,12 @@ class ProductosUI(Gtk.Window):
 
         # combobox de productos añadir los productos
         # crear liststore con el tipo de contenido de la lista
-        lista_productos = Gtk.ListStore(str)
+        lista_productos_nombre = Gtk.ListStore(str)
         # recorrer la lista y añadir los productos al list store
         for producto in productos:
-            lista_productos.append([producto])
+            lista_productos_nombre.append([producto])
             # añadir la lista al combobox
-        self.cb_productos.set_model(lista_productos)
+        self.cb_productos.set_model(lista_productos_nombre)
         # hacer visibles los productos en la combobox
         renderer_text = Gtk.CellRendererText()
         self.cb_productos.pack_start(renderer_text, True)
@@ -158,7 +176,6 @@ class ProductosUI(Gtk.Window):
         else:
             cantidad = None
 
-        # TODO: en el futuro añadir llamada al metodo para refrescar el listado de la compra
         print('{} - {}'.format(nombre_producto, cantidad))
         # cargar los datos en el treeview
         if nombre_producto and cantidad:
@@ -171,8 +188,32 @@ class ProductosUI(Gtk.Window):
         :param obj:
         :return:
         """
-        usuarios = Usuario.select()
-        print(usuarios)
+        # TODO: crear el tikect
+        print(self.usuario_registrado.nombre, )
+        # for row in self.lista_productos:
+        #     # Print values of all columns
+        #     print(row[:])
+
+        # Se genera el contenido total de las tablas Cabezera+contenido consulta"""
+        ticket_venta = [["Tienda de la esquina", "", ""],
+                        ["Vendedor:", self.usuario_registrado.nombre, self.usuario_registrado.apellido],
+                        ["", "", ""],
+                        ['Producto', 'Cantidad', ""]]
+
+        ventas = []
+
+        for row in self.lista_productos:
+            ventas.append(row[:])
+
+        for elemento in ventas:
+            ticket_venta.append(elemento)
+
+        # Se genera el documento .pdf:
+        doc = SimpleDocTemplate("Ticket.pdf", pagesize=A4)
+        guion = []
+        tabla = Table(ticket_venta)
+        guion.append(tabla)
+        doc.build(guion)
 
     def cb_cantidad_changed(self, obj):
         """
@@ -186,7 +227,7 @@ class ProductosUI(Gtk.Window):
         pass
 
 
-class UsuariosUI(Gtk.Window):
+class UsuariosUI:
     """
     ventana que muestra la lista de usuarios de la db
     """
@@ -199,7 +240,7 @@ class UsuariosUI(Gtk.Window):
         self.parent = parent
 
         builder = Gtk.Builder()
-        builder.add_from_file("./vista/Glade/ListaUsuarios.glade")
+        builder.add_from_file("./Glade/ListaUsuarios.glade")
 
         # diccionario de señales
         senales = {
@@ -230,6 +271,10 @@ class UsuariosUI(Gtk.Window):
             self.tv_usuarios.append_column(column)
 
     def cargar_usuarios(self):
+        """
+        carga los usuarios en el treeview
+        :return:
+        """
         usuarios = Usuario.select()
         self.lista_usuarios.clear()
 
@@ -272,15 +317,18 @@ class UsuariosUI(Gtk.Window):
         :param obj:
         :return:
         """
-        self.window.hide()
 
         selection = self.tv_usuarios.get_selection()
         model, tree_iter_usuarios = selection.get_selected()
         if tree_iter_usuarios is not None:
+
             dni = model[tree_iter_usuarios][3]
             usuario = Usuario.get_or_none(dni=dni)
             if usuario:
                 registro_window = RegistroUI(parent=self, usuario=usuario)
+        else:
+            mostrar_dialogo(self.window, "ERROR. No hay seleccionado ningún usuario",
+                            "Porfavor, seleccione un usuario para realizar la operación.")
 
     def on_b_eliminar_clicked(self, obj):
         """
@@ -298,6 +346,9 @@ class UsuariosUI(Gtk.Window):
                     usuario.delete_instance()
 
                 self.cargar_usuarios()
+        else:
+            mostrar_dialogo(self.window, "ERROR. No hay seleccionado ningún usuario",
+                            "Porfavor, seleccione un usuario para realizar la operación.")
 
     def on_b_reporte_usuarios_clicked(self, obj):
         """
@@ -305,7 +356,61 @@ class UsuariosUI(Gtk.Window):
         :param obj:
         :return:
         """
-        pass
+        datos = []
+        datos.append(["Nombre", "Apellido", "Puesto", "tlf", "dni"])
+        usuarios = Usuario.select()
+        for usuario in usuarios:
+            datos.append(
+                [
+                    usuario.nombre,
+                    usuario.apellido,
+                    usuario.puesto,
+                    usuario.tlf,
+                    usuario.dni
+                ]
+            )
+
+        # Creacion pdf
+        fileName = 'listaTrabajadores.pdf'
+        current_work_directory = os.getcwd()
+        print("Current work directory: {}".format(current_work_directory))
+        abs_work_directory = os.path.abspath(current_work_directory)
+        print(os.pathsep)
+        print()
+        pdf = SimpleDocTemplate(current_work_directory + "/" + fileName, pagesize=letter)
+        Title = "Lista de empleados"
+        table = Table(datos)
+        elementos = []
+        elementos.append(table)
+
+        style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.darkgrey),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.lightgrey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Courier-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 14),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ])
+        table.setStyle(style)
+        # Colores
+        rowNumb = len(datos)
+        for i in range(1, rowNumb):
+            bc = colors.lightpink
+            ts = TableStyle([('BACKGROUND', (0, i), (-1, i), colors.lightgrey)])
+            table.setStyle(ts)
+
+        # Bordes
+        ts2 = TableStyle(
+            [
+                ('BOX', (0, 0), (-1, -1), 2, colors.black),
+                ('LINEBEFORE', (0, 0), (-1, rowNumb), 2, colors.black),
+                ('LINEABOVE', (0, 0), (-1, rowNumb), 2, colors.black)
+            ]
+        )
+        table.setStyle(ts2)
+        pdf.build(elementos)
+        wb.open_new(current_work_directory + "/" + fileName)
 
 
 class RegistroUI(Gtk.Window):
@@ -322,7 +427,7 @@ class RegistroUI(Gtk.Window):
         self.parent = parent
 
         builder = Gtk.Builder()
-        builder.add_from_file("./vista/Glade/Registro.glade")
+        builder.add_from_file("./Glade/Registro.glade")
 
         # diccionario de señales
         senales = {
@@ -366,7 +471,7 @@ class RegistroUI(Gtk.Window):
         :param obj:
         :return:
         """
-        # TODO: en el futuro añadir llamada al metodo para refrescar el listado de usuarios
+
         dni = self.e_dni.get_text()
         contrasena = self.e_contrasena.get_text()
         nombre = self.e_nombre.get_text()

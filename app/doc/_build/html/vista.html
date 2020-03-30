@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Vista &#8212; documentación de ID_proyecto - </title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="prev" title="Modelo" href="modelo.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-ui">
+<span id="vista"></span><h1>Vista<a class="headerlink" href="#module-ui" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="class">
+<dt id="ui.MainUI">
+<em class="property">class </em><code class="sig-prename descclassname">ui.</code><code class="sig-name descname">MainUI</code><a class="reference internal" href="_modules/ui.html#MainUI"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.MainUI" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gi.overrides.Gtk.Window</span></code></p>
+<p>UI principal, donde se genera la ventana inicial y da acceso a las siguientes</p>
+<dl class="method">
+<dt id="ui.MainUI.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#MainUI.close"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.MainUI.close" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>cierra el programa
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.MainUI.on_b_entrar_clicked">
+<code class="sig-name descname">on_b_entrar_clicked</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#MainUI.on_b_entrar_clicked"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.MainUI.on_b_entrar_clicked" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>comprueba si las credenciales son correctas y abre la ventana de comprar productos de la tienda,
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.MainUI.on_b_gestion_usuarios_clicked">
+<code class="sig-name descname">on_b_gestion_usuarios_clicked</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#MainUI.on_b_gestion_usuarios_clicked"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.MainUI.on_b_gestion_usuarios_clicked" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>abre la ventana de que lista los usuarios añadidos a la db
+:param obj:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ui.ProductosUI">
+<em class="property">class </em><code class="sig-prename descclassname">ui.</code><code class="sig-name descname">ProductosUI</code><span class="sig-paren">(</span><em class="sig-param">parent</em>, <em class="sig-param">usuario_registrado: app.modelos.Usuario</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#ProductosUI"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.ProductosUI" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gi.overrides.Gtk.Window</span></code></p>
+<p>Ventana de compra de productos por un usuario</p>
+<dl class="method">
+<dt id="ui.ProductosUI.cb_cantidad_changed">
+<code class="sig-name descname">cb_cantidad_changed</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#ProductosUI.cb_cantidad_changed"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.ProductosUI.cb_cantidad_changed" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>obj</strong> – </p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.ProductosUI.cb_productos_changed">
+<code class="sig-name descname">cb_productos_changed</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#ProductosUI.cb_productos_changed"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.ProductosUI.cb_productos_changed" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ui.ProductosUI.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#ProductosUI.close"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.ProductosUI.close" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>cierra la ventana y devuelve el control a la ventana principal
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.ProductosUI.on_b_anadir_clicked">
+<code class="sig-name descname">on_b_anadir_clicked</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#ProductosUI.on_b_anadir_clicked"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.ProductosUI.on_b_anadir_clicked" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>añade producto elegido y cantidad a la lista de la compra
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.ProductosUI.on_b_comprar_clicked">
+<code class="sig-name descname">on_b_comprar_clicked</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#ProductosUI.on_b_comprar_clicked"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.ProductosUI.on_b_comprar_clicked" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>genera un reporte de la compra
+:param obj:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ui.RegistroUI">
+<em class="property">class </em><code class="sig-prename descclassname">ui.</code><code class="sig-name descname">RegistroUI</code><span class="sig-paren">(</span><em class="sig-param">parent=None</em>, <em class="sig-param">usuario=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#RegistroUI"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.RegistroUI" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gi.overrides.Gtk.Window</span></code></p>
+<p>ventana que muestra el formulario de registro o modificacion de un usuario</p>
+<dl class="method">
+<dt id="ui.RegistroUI.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#RegistroUI.close"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.RegistroUI.close" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>cierra la ventana y devuelve el control a la ventana de gestion de usuarios
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.RegistroUI.on_b_guardar_usuario_clicked">
+<code class="sig-name descname">on_b_guardar_usuario_clicked</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#RegistroUI.on_b_guardar_usuario_clicked"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.RegistroUI.on_b_guardar_usuario_clicked" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>guarda el ususario y devuelve el control a la ventana de gestion de usuarios
+:param obj:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ui.UsuariosUI">
+<em class="property">class </em><code class="sig-prename descclassname">ui.</code><code class="sig-name descname">UsuariosUI</code><span class="sig-paren">(</span><em class="sig-param">parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#UsuariosUI"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.UsuariosUI" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>ventana que muestra la lista de usuarios de la db</p>
+<dl class="method">
+<dt id="ui.UsuariosUI.cargar_usuarios">
+<code class="sig-name descname">cargar_usuarios</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#UsuariosUI.cargar_usuarios"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.UsuariosUI.cargar_usuarios" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>carga los usuarios en el treeview
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.UsuariosUI.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#UsuariosUI.close"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.UsuariosUI.close" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>cierra la ventana y devuelve el control a la ventana principal
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.UsuariosUI.on_b_eliminar_clicked">
+<code class="sig-name descname">on_b_eliminar_clicked</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#UsuariosUI.on_b_eliminar_clicked"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.UsuariosUI.on_b_eliminar_clicked" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>elimina el usuario seleccionado de la db
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.UsuariosUI.on_b_modificar_clicked">
+<code class="sig-name descname">on_b_modificar_clicked</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#UsuariosUI.on_b_modificar_clicked"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.UsuariosUI.on_b_modificar_clicked" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>abre la ventana de registro/edicion de usuarios para editar un usuario seleccionado de la db
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.UsuariosUI.on_b_nuevo_clicked">
+<code class="sig-name descname">on_b_nuevo_clicked</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#UsuariosUI.on_b_nuevo_clicked"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.UsuariosUI.on_b_nuevo_clicked" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>abre la ventana de registro/edicion de usuarios para añadir un nuevo usuario a la db
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ui.UsuariosUI.on_b_reporte_usuarios_clicked">
+<code class="sig-name descname">on_b_reporte_usuarios_clicked</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#UsuariosUI.on_b_reporte_usuarios_clicked"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.UsuariosUI.on_b_reporte_usuarios_clicked" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>genera un reporte con la lista de usuarios de la db
+:param obj:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="ui.mostrar_dialogo">
+<code class="sig-prename descclassname">ui.</code><code class="sig-name descname">mostrar_dialogo</code><span class="sig-paren">(</span><em class="sig-param">window</em>, <em class="sig-param">texto_primario</em>, <em class="sig-param">texto_secundario</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ui.html#mostrar_dialogo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#ui.mostrar_dialogo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Dialogo generico
+:param window:
+:param texto_primario:
+:param texto_secundario:
+:return:</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ID_proyecto</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">IDE TIENDA ALIMENTACIÓN</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modulos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="modelo.html">Modelo</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Vista</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Modulos</a><ul>
+      <li>Previous: <a href="modelo.html" title="capítulo anterior">Modelo</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Lara Vazquez.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/vista.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
