@@ -2,9 +2,10 @@ import os
 
 import gi
 
+from app.modelos import database, Usuario
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
-from .modelos import database, Usuario
 
 from reportlab.platypus import SimpleDocTemplate
 from reportlab.lib.pagesizes import letter, A4
@@ -19,8 +20,17 @@ productos = ['leche', 'cacao', 'galletas', 'cafe', 'lechuga', 'papel', 'zumo', '
 # conectar con la base de datos
 database.connect()
 
+path = os.path.dirname(os.path.realpath(__file__))
+
 
 def mostrar_dialogo(window, texto_primario, texto_secundario):
+    """
+    Dialogo generico
+    :param window:
+    :param texto_primario:
+    :param texto_secundario:
+    :return:
+    """
     dialog = Gtk.MessageDialog(window, 0, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, texto_primario)
     dialog.format_secondary_text(texto_secundario)
     dialog.run()
@@ -38,7 +48,8 @@ class MainUI(Gtk.Window):
         constructor que inicializa y muestra la ventana principal
         """
         builder = Gtk.Builder()
-        builder.add_from_file("./Glade/Inicio.glade")
+        file = os.path.join(path, 'Glade/Inicio.glade')
+        builder.add_from_file(file)
 
         # diccionario de señales
         senales = {
@@ -101,7 +112,8 @@ class ProductosUI(Gtk.Window):
         self.usuario_registrado = usuario_registrado
 
         builder = Gtk.Builder()
-        builder.add_from_file("./Glade/Productos.glade")
+        file = os.path.join(path, 'Glade/Productos.glade')
+        builder.add_from_file(file)
 
         # diccionario de señales
         senales = {
@@ -240,7 +252,8 @@ class UsuariosUI:
         self.parent = parent
 
         builder = Gtk.Builder()
-        builder.add_from_file("./Glade/ListaUsuarios.glade")
+        file = os.path.join(path, 'Glade/ListaUsuarios.glade')
+        builder.add_from_file(file)
 
         # diccionario de señales
         senales = {
@@ -427,7 +440,8 @@ class RegistroUI(Gtk.Window):
         self.parent = parent
 
         builder = Gtk.Builder()
-        builder.add_from_file("./Glade/Registro.glade")
+        file = os.path.join(path, 'Glade/Registro.glade')
+        builder.add_from_file(file)
 
         # diccionario de señales
         senales = {

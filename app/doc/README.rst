@@ -29,3 +29,12 @@ A continuación se pasará a explicar uno por uno, todos los módulos que posee:
 #. Compra de productos:
     En este modulo , se entra con dni y contraseña se efectua la elección de productos y el número del mismo y se añaden a una lista que más tarde se convertirá en un ticket.
 
+
+INSTALACION
+---------------------------
+
+- Descomprimir paquete .tar
+
+- Ejecutar: python setup.py install
+
+- Iniciar app con: id_proyecto

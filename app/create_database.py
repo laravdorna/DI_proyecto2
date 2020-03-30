@@ -1,3 +1,3 @@
-from src.app.modelos import create_tables
+from app.modelos import create_tables
 
 create_tables()
