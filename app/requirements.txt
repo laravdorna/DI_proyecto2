@@ -9,6 +9,6 @@ pycairo==1.19.1
 PyGObject==3.36.0
 PyGObject-stubs==0.0.2
 python-dateutil==2.8.1
-reportlab==3.5.42
+reportlab==3.5.55
 six==1.14.0
 tornado==6.0.4
